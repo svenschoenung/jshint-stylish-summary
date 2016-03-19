@@ -12,11 +12,11 @@ A stylish summary reporter for [jshint](https://github.com/jshint/jshint). Best 
 
 ## Screenshots
 
-Default output with [jshint](https://github.com/jshint/jshint) (in combination with [jshint-stylish](https://github.com/sindresorhus/jshint-stylish):
+Default output with [jshint](https://github.com/jshint/jshint) (in combination with [jshint-stylish](https://github.com/sindresorhus/jshint-stylish)):
 
 ![](screenshot-jshint.png)
 
-Default output with [gulp-jshint](https://github.com/spalger/gulp-jshint)  (in combination with [jshint-stylish](https://github.com/sindresorhus/jshint-stylish):
+Default output with [gulp-jshint](https://github.com/spalger/gulp-jshint)  (in combination with [jshint-stylish](https://github.com/sindresorhus/jshint-stylish)):
 
 ![](screenshot-gulp-jshint.png)
 
