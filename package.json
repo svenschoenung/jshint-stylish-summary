@@ -14,6 +14,14 @@
     "node": ">= 0.12"
   },
   "dependencies": {
+    "chalk": "^1.1.1",
+    "extend": "^3.0.0",
+    "log-symbols": "^1.0.2",
+    "map-stream": "0.0.6",
+    "plur": "^2.1.2",
+    "sprintf-js": "^1.0.3",
+    "string-length": "^1.0.1",
+    "text-table": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
@@ -32,6 +40,6 @@
     "jshint-stylish",
     "lint",
     "reporter"
-   ],
+  ],
   "license": "MIT"
 }
