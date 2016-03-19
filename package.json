@@ -1,0 +1,37 @@
+{
+  "name": "jshint-stylish-summary",
+  "description": "A stylish summary reporter for jshint",
+  "version": "0.0.1",
+  "author": {
+    "name": "Sven Schönung <sven.schoenung@gmail.com> (http://sven.schoenung.org/)"
+  },
+  "homepage": "https://github.com/svenschoenung/jshint-stylish-summary.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/svenschoenung/jshint-stylish-summary.git"
+  },
+  "engines": {
+    "node": ">= 0.12"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4",
+    "chai": "^3.5.0",
+    "mocha-lcov-reporter": "^1.0.0",
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.2"
+  },
+  "scripts": {
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha test.js --report html -- -R spec"
+  },
+  "keywords": [
+    "jshint",
+    "stylish",
+    "summary",
+    "jshint-stylish",
+    "lint",
+    "reporter"
+   ],
+  "license": "MIT"
+}
