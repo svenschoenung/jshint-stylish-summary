@@ -8,6 +8,22 @@ var plur = require('plur');
 var symb = require('log-symbols');
 var extend = require('extend');
 
+function log(output, opts) {
+  var fileCountPattern = '%' + ('' + opts.maxFileCount).length + 'd';
+  var problemCountPattern = '%' + ('' + opts.maxProblemCount).length + 'd';
+  if (opts.fileCount > 0) {
+    output.push([
+      f('  %s  ' + fileCountPattern + ' %s %s',
+       opts.symbol, opts.fileCount, plur('file', opts.fileCount), opts.fileDesc),
+      (!opts.showPercentage) ? '' :
+        f('(%5.2f%%)', opts.filePercentage),
+      (!opts.showTotals) ? '' :
+        f('     %s  ' + problemCountPattern + ' %s total',
+          opts.symbol, opts.problemCount, plur(opts.problem, opts.problemCount))
+    ]);
+  }
+}
+
 function reporter(results, config, options) { 
   options = extend({}, {
     showSummaryOnSuccess: false,
@@ -42,51 +58,55 @@ function reporter(results, config, options) {
   var warningCount = errorCounts['I'] + errorCounts['W'];
   var errorCount = errorCounts['E'];
 
-  var maxFileDigits = (''+totalFileCount).length
-  var fd = '%' + maxFileDigits + 'd';
-  var maxProblemDigits = (''+Math.max(errorCount, warningCount)).length
-  var pd = '%' + maxProblemDigits + 'd';
-
   if (successFileCount == totalFileCount && !options.showSummaryOnSuccess) {
     return;
   }
   if (options.showSummaryHeader) {
     console.log(chalk.inverse('\n SUMMARY \n'))
   }
-  var output = [[
-    f('  %s  ' + fd + ' %s checked',
-      symb.info, totalFileCount, plur('file', totalFileCount)),
-  ]];
-  if (successFileCount > 0) {
-    output.push([
-      f('  %s  ' + fd + ' %s without problems',
-       symb.success, successFileCount, plur('file', successFileCount)),
-      f('(%5.2f%%)',
-        successPercentage)
-    ]);
-  }
-  if (warningFileCount > 0) {
-    output.push([
-      f('  %s  ' + fd + ' %s with warnings',
-        symb.warning, warningFileCount, plur('file', warningFileCount)),
-      f('(%5.2f%%)',
-        warningPercentage),
-      (!options.showWarningTotals) ? '' :
-        f('     %s  ' + pd + ' %s total',
-          symb.warning, warningCount, plur('warning', warningCount)),
-    ]);
-  }
-  if (errorFileCount > 0) {
-    output.push([
-      f('  %s  ' + fd + ' %s with errors',
-        symb.error, errorFileCount, plur('file', errorFileCount)),
-      f('(%5.2f%%)',
-        errorPercentage),
-      (!options.showErrorTotals) ? '' :
-        f('     %s  ' + pd + ' %s total',
-          symb.error, errorCount, plur('error', errorCount)),
-    ]);
-  }
+
+  var output = [];
+  log(output, {
+    symbol: symb.info,
+    maxFileCount: totalFileCount,
+    fileCount: totalFileCount,
+    showPercentage: false,
+    showTotals: false
+  });
+  log(output, {
+    symbol: symb.success,
+    maxFileCount: totalFileCount,
+    fileCount: successFileCount,
+    filePercentage: successPercentage,
+    fileDesc: 'without problems',
+    showPercentage: true,
+    showTotals: false
+  });
+  log(output, {
+    symbol: symb.warning,
+    maxFileCount: totalFileCount,
+    fileCount: warningFileCount,
+    filePercentage: warningPercentage,
+    fileDesc: 'with warnings',
+    maxProblemCount: Math.max(errorCount, warningCount),
+    problemCount: warningCount,
+    problem: 'warning',
+    showPercentage: true,
+    showTotals: true
+  });
+  log(output, {
+    symbol: symb.error,
+    maxFileCount: totalFileCount,
+    fileCount: errorFileCount,
+    filePercentage: errorPercentage,
+    fileDesc: 'with errors',
+    maxProblemCount: Math.max(errorCount, warningCount),
+    problemCount: errorCount,
+    problem: 'error',
+    showPercentage: true,
+    showTotals: true
+  });
+
   console.log(table(output, {
     hsep: '   ',
     stringLength: require('string-length'),
