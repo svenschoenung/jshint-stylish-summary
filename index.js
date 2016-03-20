@@ -10,19 +10,64 @@ var extend = require('extend');
 var strLen = require('string-length');
 
 function log(output, opts) {
-  var fileCountPattern = '%' + ('' + opts.maxFileCount).length + 'd';
-  var problemCountPattern = '%' + ('' + opts.maxProblemCount).length + 'd';
-  if (opts.fileCount > 0) {
+  var stats = opts.stats;
+  var symbol = (opts.symbol) ? opts.symbol : symb[opts.type];
+
+  var patternFileCount = '%' + ('' + stats.files.total).length + 'd';
+  var patternProblemCount = '%' + ('' + stats.problems.total).length + 'd';
+
+  var patternFiles = '  %s  ' + patternFileCount + ' %s %s';
+  var patternFilePct = '(%5.2f%%)';
+  var patternProblems = '     %s  ' + patternProblemCount + ' %s total';
+
+  var files = stats.files[opts.type];
+  var filePct = stats.files[opts.type + 'Pct'];
+  var problems = stats.problems[opts.type];
+
+  if (stats.files[opts.type] > 0) {
     output.push([
-      f('  %s  ' + fileCountPattern + ' %s %s',
-       opts.symbol, opts.fileCount, plur('file', opts.fileCount), opts.fileDesc),
-      (!opts.showPercentage) ? '' :
-        f('(%5.2f%%)', opts.filePercentage),
-      (!opts.showTotals) ? '' :
-        f('     %s  ' + problemCountPattern + ' %s total',
-          opts.symbol, opts.problemCount, plur(opts.problem, opts.problemCount))
+        f(patternFiles, symbol, files, plur('file', files), opts.desc),
+      (!opts.showFilePct) ? '' :
+        f(patternFilePct, filePct),
+      (!opts.showProblems) ? '' :
+        f(patternProblems, symbol, problems, plur(opts.type, problems))
     ]);
   }
+}
+
+function pct(i, n) {
+  return i / n * 100;
+}
+
+function statistics(results, config) {
+  var problemCounts = { 'I': 0, 'W': 0, 'E': 0 };
+  var problemFiles  = { 'I': new Set(), 'W': new Set(), 'E': new Set() }; 
+  var successFiles  = new Set();
+
+  config.map(function(conf) {
+    successFiles.add(conf.file);
+  });
+
+  results.map(function(result) {
+    problemCounts[result.error.code[0]]++; 
+    problemFiles[result.error.code[0]].add(result.file);
+    successFiles.delete(result.file);
+  });
+
+  var stats = { files: {}, problems: {} };
+  stats.files.total   = config.length;
+  stats.files.success = successFiles.size;
+  stats.files.warning = problemFiles['I'].size + problemFiles['W'].size;
+  stats.files.error   = problemFiles['E'].size;
+  stats.files.problem = stats.files.total - stats.files.success;
+  stats.files.successPct = pct(stats.files.success, stats.files.total);
+  stats.files.warningPct = pct(stats.files.warning, stats.files.total);
+  stats.files.errorPct   = pct(stats.files.error,   stats.files.total);
+  stats.problems.warning = problemCounts['I'] + problemCounts['W'];
+  stats.problems.error   = problemCounts['E'];
+  stats.problems.total   = stats.problems.warning + stats.problems.error;
+
+  return stats;
 }
 
 function reporter(results, config, options) { 
@@ -30,89 +75,55 @@ function reporter(results, config, options) {
     showSummaryOnSuccess: false,
     showSummaryHeader: false,
     showWarningTotals: false,
-    showErrorTotals: false
+    showErrorTotals: false,
+    print: console.log
   }, options);
 
-  var errorCounts  = { 'I': 0, 'W': 0, 'E': 0 };
-  var errorFiles   = { 'I': new Set(), 'W': new Set(), 'E': new Set() }; 
-  var successFiles = new Set();
+  var stats = statistics(results, config);
 
-  config.map(function(conf) {
-    successFiles.add(conf.file);
-  });
-
-  results.map(function(result) {
-    errorCounts[result.error.code[0]]++; 
-    errorFiles[result.error.code[0]].add(result.file);
-    successFiles.delete(result.file);
-  });
-
-  var totalFileCount   = config.length;
-  var successFileCount = successFiles.size;
-  var warningFileCount = errorFiles['I'].size + errorFiles['W'].size;
-  var errorFileCount   = errorFiles['E'].size;
-
-  var successPercentage = successFileCount / totalFileCount * 100;
-  var warningPercentage = warningFileCount / totalFileCount * 100;
-  var errorPercentage   = errorFileCount / totalFileCount * 100;
-
-  var warningCount = errorCounts['I'] + errorCounts['W'];
-  var errorCount = errorCounts['E'];
-
-  if (successFileCount === totalFileCount &&
-      !options.showSummaryOnSuccess) {
+  if (stats.files.problem === 0 && !options.showSummaryOnSuccess) {
     return;
   }
-  if (options.showSummaryHeader) {
-    console.log(chalk.inverse('\n SUMMARY \n'))
-  }
-
-  var output = [];
-  log(output, {
+  var tableOutput = [];
+  log(tableOutput, {
+    stats: stats,
     symbol: symb.info,
-    maxFileCount: totalFileCount,
-    fileCount: totalFileCount,
-    showPercentage: false,
-    showTotals: false
+    type: 'total',
+    desc: 'checked',
+    showFilePct: false,
+    showProblems: false
   });
-  log(output, {
-    symbol: symb.success,
-    maxFileCount: totalFileCount,
-    fileCount: successFileCount,
-    filePercentage: successPercentage,
-    fileDesc: 'without problems',
-    showPercentage: true,
-    showTotals: false
+  log(tableOutput, {
+    stats: stats,
+    type: 'success',
+    desc: 'without problems',
+    showFilePct: true,
+    showProblems: false
   });
-  log(output, {
-    symbol: symb.warning,
-    maxFileCount: totalFileCount,
-    fileCount: warningFileCount,
-    filePercentage: warningPercentage,
-    fileDesc: 'with warnings',
-    maxProblemCount: Math.max(errorCount, warningCount),
-    problemCount: warningCount,
-    problem: 'warning',
-    showPercentage: true,
-    showTotals: true
+  log(tableOutput, {
+    stats: stats,
+    type: 'warning',
+    desc: 'with warnings',
+    showFilePct: true,
+    showProblems: options.showWarningTotals
   });
-  log(output, {
-    symbol: symb.error,
-    maxFileCount: totalFileCount,
-    fileCount: errorFileCount,
-    filePercentage: errorPercentage,
-    fileDesc: 'with errors',
-    maxProblemCount: Math.max(errorCount, warningCount),
-    problemCount: errorCount,
-    problem: 'error',
-    showPercentage: true,
-    showTotals: true
+  log(tableOutput, {
+    stats: stats,
+    type: 'error',
+    desc: 'with errors',
+    showFilePct: true,
+    showProblems: options.showErrorTotals
   });
 
-  console.log(table(output, {
+  var output = '';
+  if (options.showSummaryHeader) {
+    output += chalk.inverse('\n SUMMARY \n\n');
+  }
+  output += table(tableOutput, {
     hsep: '   ',
     stringLength: strLen
-  }) + '\n');
+  });
+  options.print(output + '\n');
 }
 
 function parseArguments(args) {
@@ -172,13 +183,18 @@ function JSHintStylishSummary() {
     };
    };
 
+   this.stats = function(stat) {
+     var opts = parseArguments(arguments);
+     return statistics(stats[opts.stat].results, stats[opts.stat].config);
+   };
+
    this.create = function() {
      return new JSHintStylishSummary();
    };
 
    this.toString = function() {
      return __filename;
-   }
+   };
 }
 
 module.exports = new JSHintStylishSummary();
