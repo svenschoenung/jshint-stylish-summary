@@ -7,6 +7,7 @@ var chalk = require('chalk');
 var plur = require('plur');
 var symb = require('log-symbols');
 var extend = require('extend');
+var strLen = require('string-length');
 
 function log(output, opts) {
   var fileCountPattern = '%' + ('' + opts.maxFileCount).length + 'd';
@@ -29,7 +30,7 @@ function reporter(results, config, options) {
     showSummaryOnSuccess: false,
     showSummaryHeader: false,
     showWarningTotals: false,
-    showErrorTotals: false,
+    showErrorTotals: false
   }, options);
 
   var errorCounts  = { 'I': 0, 'W': 0, 'E': 0 };
@@ -58,7 +59,8 @@ function reporter(results, config, options) {
   var warningCount = errorCounts['I'] + errorCounts['W'];
   var errorCount = errorCounts['E'];
 
-  if (successFileCount == totalFileCount && !options.showSummaryOnSuccess) {
+  if (successFileCount === totalFileCount &&
+      !options.showSummaryOnSuccess) {
     return;
   }
   if (options.showSummaryHeader) {
@@ -109,19 +111,19 @@ function reporter(results, config, options) {
 
   console.log(table(output, {
     hsep: '   ',
-    stringLength: require('string-length'),
+    stringLength: strLen
   }) + '\n');
 }
 
 function parseArguments(args) {
   var opts = { };
-  if (args.length == 1) {
+  if (args.length === 1) {
     if (util.isString(args[0])) {
       opts = { stat: args[0] };
     } else {
       opts = args[0];
     }
-  } else if (args.length == 2) {
+  } else if (args.length === 2) {
     opts = args[1];
     opts.stat = args[0];
   }
@@ -142,12 +144,12 @@ function JSHintStylishSummary() {
       stats[opts.stat] = stats[opts.stat] || { results: [], config: [] };
       if (file.jshint.success) {
         stats[opts.stat].config.push({
-          file: path.relative(file.cwd, file.path),
+          file: path.relative(file.cwd, file.path)
         });
       } else {
-        for (var i in file.jshint.results) {
-          stats[opts.stat].results.push(file.jshint.results[i]);
-        }
+        file.jshint.results.map(function(result) {
+          stats[opts.stat].results.push(result);
+        });
         stats[opts.stat].config.push(file.jshint.data[0]);
       }
       cb(null, file);
@@ -164,7 +166,7 @@ function JSHintStylishSummary() {
           showSummaryOnSuccess: true,
           showSummaryHeader: true,
           showWarningTotals: true,
-          showErrorTotals: true,
+          showErrorTotals: true
         }, opts)
       );
     };
