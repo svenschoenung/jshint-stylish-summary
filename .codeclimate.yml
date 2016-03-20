@@ -6,7 +6,7 @@ engines:
       languages:
       - javascript
     exclude_fingerprints:
-      - ab4701990a8ccbfbf0fdd01a4b66e15a
+      - 3defb600b506b6472dd620f7996e3997
   eslint:
     enabled: true
   fixme:
@@ -14,4 +14,5 @@ engines:
 ratings:
   paths:
   - "**.js"
-exclude_paths: []
+exclude_paths:
+  - "test/**/*.js"
