@@ -149,7 +149,7 @@ function JSHintStylishSummary() {
 
   this.reporter = reporter;
 
-  this.collect = function(stat) {
+  this.collect = function() {
     var opts = parseArguments(arguments);
     return map(function(file, cb) {
       stats[opts.stat] = stats[opts.stat] || { results: [], config: [] };
