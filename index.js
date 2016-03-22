@@ -117,7 +117,9 @@ function reporter(results, config, options) {
 
   var output = '';
   if (options.showSummaryHeader) {
-    output += chalk.inverse('\n SUMMARY \n\n');
+    output += (options.stat) ?
+      chalk.inverse('\n SUMMARY: ' + options.stat + ' \n\n') :
+      chalk.inverse('\n SUMMARY \n\n');
   }
   output += table(tableOutput, {
     hsep: '   ',
