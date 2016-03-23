@@ -20,6 +20,53 @@ Default output with [gulp-jshint](https://github.com/spalger/gulp-jshint)  (in c
 
 ![](screenshot-gulp-jshint.png)
 
+## Installation
+
+    npm install --save-dev jshint-stylish-summary
+
+## Usage
+
+### With [jshint](https://github.com/jshint/jshint)
+
+    $ jshint --reporter=node_modules/jshint-stylish-summary src/js/*.js
+
+Since jshint's CLI [doesn't currently support multiple reporters](https://github.com/jshint/jshint/issues/1702) it is necessary to create a wrapper reporter if jshint-stylish-summary should be used in combination with another reporter.
+
+To use jshint-stylish-summary with, e.g., [jshint-stylish](https://github.com/sindresorhus/jshint-stylish), create a file `reporter.js`:
+
+```js
+module.exports = {
+  reporter: function(result, config, options) {
+    require('jshint-stylish').reporter(result, config, options);
+    require('jshint-stylish-summary').reporter(result, config, options);
+  }
+};
+```
+
+Then pass this file to jshint:
+
+    $ jshint --reporter=reporter.js src/js/*.js
+
+### With [gulp-jshint](https://github.com/spalger/gulp-jshint)
+
+Since jshint-stylish-summary needs to collect information about all files passing through the stream before it can log the results, it is not compatible with gulp-jshint's [`reporter()`](https://github.com/spalger/gulp-jshint#external) interface.
+
+Instead use the `collect()` and `summarize()` functions that jshint-stylish-summary provides:
+
+```js
+var jshintSummary = require('jshint-stylish-summary');
+
+gulp.task('lint', function() {
+  return gulp.src('src/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshintSummary.collect())
+    .on('end', jshintSummary.summarize());
+});
+```
+
+See the [API documentation](API.md) for a complete overview of all available functions and options.
+
 ## License
 
 [MIT](LICENSE)
