@@ -174,9 +174,9 @@ function JSHintStylishSummary() {
     var opts = parseArguments(arguments);
     return function() {
       reporter(
-	stats[opts.stat].results,
-       	stats[opts.stat].config,
-       	extend({}, {
+        stats[opts.stat].results,
+        stats[opts.stat].config,
+        extend({}, {
           showSummaryOnSuccess: true,
           showSummaryHeader: true,
           showWarningTotals: true,
