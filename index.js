@@ -63,6 +63,7 @@ function statistics(results, config) {
   stats.files.successPct = pct(stats.files.success, stats.files.total);
   stats.files.warningPct = pct(stats.files.warning, stats.files.total);
   stats.files.errorPct   = pct(stats.files.error,   stats.files.total);
+  stats.files.problemPct = pct(stats.files.problem, stats.files.total);
   stats.problems.warning = problemCounts['I'] + problemCounts['W'];
   stats.problems.error   = problemCounts['E'];
   stats.problems.total   = stats.problems.warning + stats.problems.error;
