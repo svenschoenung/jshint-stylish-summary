@@ -85,11 +85,11 @@ gulp.task('lint', function() {
 
 ### options
 
-- `stat`: Name of the statistic to be printed. Same as providing `stat` as the first parameter to `summarize()`. (Optional.)
-- `showSummaryOnSuccess`: Whether to print anything at all when no warnings or errors have been detected. (Defaults to `true`.)
-- `showSummaryHeader`: Whether to print a header that sets the summary off from previous output. (Defaults to `true`.)
-- `showWarningTotals`: Whether to print the total number of all generated warnings. (Defaults to `true`.)
-- `showErrorTotals`: Whether to print the total number of all detected errors. (Defaults to `true`.)
+- `stat`: name of the statistic to be printed. Same as providing `stat` as the first parameter to `summarize()`. (Optional.)
+- `showSummaryOnSuccess`: whether to print anything at all when no warnings or errors have been detected. (Defaults to `true`.)
+- `showSummaryHeader`: whether to print a header that sets the summary off from previous output. (Defaults to `true`.)
+- `showWarningTotals`: whether to print the total number of all generated warnings. (Defaults to `true`.)
+- `showErrorTotals`: whether to print the total number of all detected errors. (Defaults to `true`.)
 
 ## stats([stat])
 
