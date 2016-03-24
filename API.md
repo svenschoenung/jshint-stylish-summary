@@ -90,6 +90,7 @@ gulp.task('lint', function() {
 - `showSummaryHeader`: whether to print a header that sets the summary off from previous output. (Defaults to `true`.)
 - `showWarningTotals`: whether to print the total number of all generated warnings. (Defaults to `true`.)
 - `showErrorTotals`: whether to print the total number of all detected errors. (Defaults to `true`.)
+- `summaryHeader`: text of header that sets the summary off from previous output. (Defaults to `'SUMMARY: ' + stat`.)
 
 ## stats([stat])
 

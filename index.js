@@ -118,9 +118,9 @@ function reporter(results, config, options) {
 
   var output = '';
   if (options.showSummaryHeader) {
-    output += (options.stat) ?
-      chalk.inverse('\n SUMMARY: ' + options.stat + ' \n\n') :
-      chalk.inverse('\n SUMMARY \n\n');
+    var header = (options.summaryHeader) ? options.summaryHeader :
+      'SUMMARY' + ((options.stat) ? ': ' + options.stat : '');
+    output += '\n' + chalk.inverse(' ' + header + ' ') + '\n\n';
   }
   output += table(tableOutput, {
     hsep: '   ',

@@ -112,6 +112,28 @@ describe('summary.summarize', function() {
       }
     }]);
   });
+  it('it should honor stat option', function(done) {
+    testSummarize('test/test1/*.js', [{
+      stat: 'STATNAME',
+      showSummaryOnSuccess: true,
+      print: function(output) {
+        expect(output).to.match(/SUMMARY: STATNAME/);
+	done();
+      }
+    }]);
+  });
+  it('it should honor summaryHeader option', function(done) {
+    testSummarize('test/test1/*.js', [{
+      stat: 'STATNAME',
+      summaryHeader: 'CUSTOM HEADER',
+      showSummaryOnSuccess: true,
+      print: function(output) {
+        expect(output).to.match(/CUSTOM HEADER/);
+        expect(output).to.not.match(/SUMMARY/);
+	done();
+      }
+    }]);
+  });
   it('it should honor showSummaryOnSuccess:true option', function(done) {
     testSummarize('test/test1/good.js', [{
       showSummaryOnSuccess: true,
