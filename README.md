@@ -10,6 +10,8 @@
 
 A stylish summary reporter for [jshint](https://github.com/jshint/jshint). Best used in combination with [jshint-stylish](https://github.com/sindresorhus/jshint-stylish).
 
+Brought on by [this Stack Overflow question](http://stackoverflow.com/q/36010512/5892036).
+
 ## Screenshots
 
 Default output with [jshint](https://github.com/jshint/jshint) (in combination with [jshint-stylish](https://github.com/sindresorhus/jshint-stylish)):
