@@ -134,7 +134,7 @@ The returned object provides the following fields:
 - `.files.successPct`: percentage of files where no problems where found
 - `.files.warningPct`: percentage of files where at least one warning was raised
 - `.files.errorPct`: percentage of files where at least one error was raised
-- `.files.problemPct`: percentage of files at least one warning or error was raised
+- `.files.problemPct`: percentage of files where at least one warning or error was raised
 - `.problems.warning`: overall number of warnings that were raised
 - `.problems.error`: overall number of errors that were raised
 - `.problems.total`: overall number of warnings and errors that were raised
