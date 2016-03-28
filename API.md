@@ -100,6 +100,8 @@ When called with no parameters returns the one for the default statistic.
 
 Optionally takes the name `stat` of a particular statistic and returns that statistic.
 
+**Example**
+
 ```js
 gulp.task('lint', function() {
   var clientStream = gulp.src('src/client/**/*.js')
