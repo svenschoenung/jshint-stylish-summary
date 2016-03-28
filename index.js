@@ -186,7 +186,7 @@ function JSHintStylishSummary() {
     };
    };
 
-   this.stats = function(stat) {
+   this.stats = function() {
      var opts = parseArguments(arguments);
      return statistics(stats[opts.stat].results, stats[opts.stat].config);
    };
