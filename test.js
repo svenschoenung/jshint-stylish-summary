@@ -1,4 +1,7 @@
 'use strict';
+
+/*global describe:false, it:false*/
+
 var chai = require('chai');
 chai.use(require('chai-spies'));
 var expect = chai.expect;
