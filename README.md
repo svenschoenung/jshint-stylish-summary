@@ -53,7 +53,7 @@ Then pass this file to jshint:
 
 Since jshint-stylish-summary needs to collect information about all files passing through the stream before it can log the results, it is not compatible with gulp-jshint's [`reporter()`](https://github.com/spalger/gulp-jshint#external) interface.
 
-Instead use the `collect()` and `summarize()` functions that jshint-stylish-summary provides:
+Instead use the [`collect()`](API.md#collectstat) and [`summarize()`](API.md#summarizestat-options-summarizeoptions) functions that jshint-stylish-summary provides:
 
 ```js
 var jshintSummary = require('jshint-stylish-summary');
