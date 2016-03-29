@@ -26,7 +26,7 @@ function log(output, opts) {
 
   if (stats.files[opts.type] > 0) {
     output.push([
-        f(patternFiles, symbol, files, plur('file', files), opts.desc),
+      f(patternFiles, symbol, files, plur('file', files), opts.desc),
       (!opts.showFilePct) ? '' :
         f(patternFilePct, filePct),
       (!opts.showProblems) ? '' :
@@ -41,7 +41,7 @@ function pct(i, n) {
 
 function statistics(results, config) {
   var problemCounts = { 'I': 0, 'W': 0, 'E': 0 };
-  var problemFiles  = { 'I': new Set(), 'W': new Set(), 'E': new Set() }; 
+  var problemFiles  = { 'I': new Set(), 'W': new Set(), 'E': new Set() };
   var successFiles  = new Set();
 
   config.map(function(conf) {
@@ -49,7 +49,7 @@ function statistics(results, config) {
   });
 
   results.map(function(result) {
-    problemCounts[result.error.code[0]]++; 
+    problemCounts[result.error.code[0]]++;
     problemFiles[result.error.code[0]].add(result.file);
     successFiles.delete(result.file);
   });
@@ -71,7 +71,7 @@ function statistics(results, config) {
   return stats;
 }
 
-function reporter(results, config, options) { 
+function reporter(results, config, options) {
   options = extend({}, {
     showSummaryOnSuccess: false,
     showSummaryHeader: false,
@@ -184,20 +184,20 @@ function JSHintStylishSummary() {
         }, opts)
       );
     };
-   };
+  };
 
-   this.stats = function() {
-     var opts = parseArguments(arguments);
-     return statistics(stats[opts.stat].results, stats[opts.stat].config);
-   };
+  this.stats = function() {
+    var opts = parseArguments(arguments);
+    return statistics(stats[opts.stat].results, stats[opts.stat].config);
+  };
 
-   this.create = function() {
-     return new JSHintStylishSummary();
-   };
+  this.create = function() {
+    return new JSHintStylishSummary();
+  };
 
-   this.toString = function() {
-     return __filename;
-   };
+  this.toString = function() {
+    return __filename;
+  };
 }
 
 module.exports = new JSHintStylishSummary();

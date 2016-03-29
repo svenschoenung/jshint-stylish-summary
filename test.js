@@ -1,6 +1,6 @@
 'use strict';
 
-/*global describe:false, it:false*/
+/* global describe:false, it:false */
 
 var chai = require('chai');
 chai.use(require('chai-spies'));
@@ -42,63 +42,63 @@ describe('summary.create', function() {
 
 describe('summary.collect', function() {
   it('it should populate default statistics object', function(done) {
-    testCollect('test/test1/*.js',summary.collect(), function() {
-      var stats = summary.stats();
-      expect(stats.files.total).to.equal(3);
-      expect(stats.files.success).to.equal(1);
-      expect(stats.files.warning).to.equal(2);
-      expect(stats.files.error).to.equal(1);
-      expect(stats.files.problem).to.equal(2);
-      expect(stats.files.successPct).to.be.within(33.33, 33.34);
-      expect(stats.files.warningPct).to.be.within(66.66, 66.67);
-      expect(stats.files.errorPct).to.be.within(33.33, 33.34);
-      expect(stats.problems.warning).to.equal(3);
-      expect(stats.problems.error).to.equal(2);
-      expect(stats.problems.total).to.equal(5);
+    testCollect('test/test1/*.js', summary.collect(), function() {
+      var stats1 = summary.stats();
+      expect(stats1.files.total).to.equal(3);
+      expect(stats1.files.success).to.equal(1);
+      expect(stats1.files.warning).to.equal(2);
+      expect(stats1.files.error).to.equal(1);
+      expect(stats1.files.problem).to.equal(2);
+      expect(stats1.files.successPct).to.be.within(33.33, 33.34);
+      expect(stats1.files.warningPct).to.be.within(66.66, 66.67);
+      expect(stats1.files.errorPct).to.be.within(33.33, 33.34);
+      expect(stats1.problems.warning).to.equal(3);
+      expect(stats1.problems.error).to.equal(2);
+      expect(stats1.problems.total).to.equal(5);
       testCollect('test/test2/*.js', summary.collect(), function() {
-        var stats = summary.stats();
-        expect(stats.files.total).to.equal(6);
-        expect(stats.files.success).to.equal(2);
-        expect(stats.files.warning).to.equal(4);
-        expect(stats.files.error).to.equal(2);
-        expect(stats.files.problem).to.equal(4);
-        expect(stats.files.successPct).to.be.within(33.33, 33.34);
-        expect(stats.files.warningPct).to.be.within(66.66, 66.67);
-        expect(stats.files.errorPct).to.be.within(33.33, 33.34);
-        expect(stats.problems.warning).to.equal(6);
-        expect(stats.problems.error).to.equal(4);
-        expect(stats.problems.total).to.equal(10);
+        var stats2 = summary.stats();
+        expect(stats2.files.total).to.equal(6);
+        expect(stats2.files.success).to.equal(2);
+        expect(stats2.files.warning).to.equal(4);
+        expect(stats2.files.error).to.equal(2);
+        expect(stats2.files.problem).to.equal(4);
+        expect(stats2.files.successPct).to.be.within(33.33, 33.34);
+        expect(stats2.files.warningPct).to.be.within(66.66, 66.67);
+        expect(stats2.files.errorPct).to.be.within(33.33, 33.34);
+        expect(stats2.problems.warning).to.equal(6);
+        expect(stats2.problems.error).to.equal(4);
+        expect(stats2.problems.total).to.equal(10);
         done();
       });
     });
   });
   it('it should populate named statistics object', function(done) {
-    testCollect('test/test1/*.js',summary.collect('stats1'), function() {
-      var stats = summary.stats('stats1');
-      expect(stats.files.total).to.equal(3);
-      expect(stats.files.success).to.equal(1);
-      expect(stats.files.warning).to.equal(2);
-      expect(stats.files.error).to.equal(1);
-      expect(stats.files.problem).to.equal(2);
-      expect(stats.files.successPct).to.be.within(33.33, 33.34);
-      expect(stats.files.warningPct).to.be.within(66.66, 66.67);
-      expect(stats.files.errorPct).to.be.within(33.33, 33.34);
-      expect(stats.problems.warning).to.equal(3);
-      expect(stats.problems.error).to.equal(2);
-      expect(stats.problems.total).to.equal(5);
+    testCollect('test/test1/*.js', summary.collect('stats1'), function() {
+      var stats1 = summary.stats('stats1');
+      expect(stats1.files.total).to.equal(3);
+      expect(stats1.files.success).to.equal(1);
+      expect(stats1.files.warning).to.equal(2);
+      expect(stats1.files.error).to.equal(1);
+      expect(stats1.files.problem).to.equal(2);
+      expect(stats1.files.successPct).to.be.within(33.33, 33.34);
+      expect(stats1.files.warningPct).to.be.within(66.66, 66.67);
+      expect(stats1.files.errorPct).to.be.within(33.33, 33.34);
+      expect(stats1.problems.warning).to.equal(3);
+      expect(stats1.problems.error).to.equal(2);
+      expect(stats1.problems.total).to.equal(5);
       testCollect('test/test1/*.js', summary.collect('stats2'), function() {
-        var stats = summary.stats('stats2');
-        expect(stats.files.total).to.equal(3);
-        expect(stats.files.success).to.equal(1);
-        expect(stats.files.warning).to.equal(2);
-        expect(stats.files.error).to.equal(1);
-        expect(stats.files.problem).to.equal(2);
-        expect(stats.files.successPct).to.be.within(33.33, 33.34);
-        expect(stats.files.warningPct).to.be.within(66.66, 66.67);
-        expect(stats.files.errorPct).to.be.within(33.33, 33.34);
-        expect(stats.problems.warning).to.equal(3);
-        expect(stats.problems.error).to.equal(2);
-        expect(stats.problems.total).to.equal(5);
+        var stats2 = summary.stats('stats2');
+        expect(stats2.files.total).to.equal(3);
+        expect(stats2.files.success).to.equal(1);
+        expect(stats2.files.warning).to.equal(2);
+        expect(stats2.files.error).to.equal(1);
+        expect(stats2.files.problem).to.equal(2);
+        expect(stats2.files.successPct).to.be.within(33.33, 33.34);
+        expect(stats2.files.warningPct).to.be.within(66.66, 66.67);
+        expect(stats2.files.errorPct).to.be.within(33.33, 33.34);
+        expect(stats2.problems.warning).to.equal(3);
+        expect(stats2.problems.error).to.equal(2);
+        expect(stats2.problems.total).to.equal(5);
         done();
       });
     });
@@ -111,7 +111,7 @@ describe('summary.summarize', function() {
       print: function(output) {
         expect(output).to.be.a('string');
         expect(output).to.match(/files? checked/);
-	done();
+        done();
       }
     }]);
   });
@@ -147,7 +147,7 @@ describe('summary.summarize', function() {
     }]);
   });
   it('it should honor showSummaryOnSuccess:false option', function(done) {
-    var spy = chai.spy(); 
+    var spy = chai.spy();
     testSummarize('test/test1/good.js', [{
       showSummaryOnSuccess: false,
       print: spy
