@@ -133,7 +133,7 @@ describe('summary.summarize', function() {
       print: function(output) {
         expect(output).to.match(/CUSTOM HEADER/);
         expect(output).to.not.match(/SUMMARY/);
-	done();
+        done();
       }
     }]);
   });
@@ -142,7 +142,7 @@ describe('summary.summarize', function() {
       showSummaryOnSuccess: true,
       print: function(output) {
         expect(output).to.not.match(/^\s*$/);
-	done();
+        done();
       }
     }]);
   });
@@ -161,7 +161,7 @@ describe('summary.summarize', function() {
       showSummaryHeader: true,
       print: function(output) {
         expect(output).to.match(/SUMMARY/);
-	done();
+        done();
       }
     }]);
   });
@@ -170,7 +170,7 @@ describe('summary.summarize', function() {
       showSummaryHeader: false,
       print: function(output) {
         expect(output).to.not.match(/SUMMARY/);
-	done();
+        done();
       }
     }]);
   });
