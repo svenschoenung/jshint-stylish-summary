@@ -121,7 +121,7 @@ describe('summary.summarize', function() {
       showSummaryOnSuccess: true,
       print: function(output) {
         expect(output).to.match(/SUMMARY: STATNAME/);
-	done();
+        done();
       }
     }]);
   });
@@ -141,7 +141,7 @@ describe('summary.summarize', function() {
     testSummarize('test/test1/good.js', [{
       showSummaryOnSuccess: true,
       print: function(output) {
-        expect(output).to.not.be.empty;
+        expect(output).to.not.match(/^\s*$/);
 	done();
       }
     }]);

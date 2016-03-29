@@ -71,14 +71,14 @@ function statistics(results, config) {
   return stats;
 }
 
-function reporter(results, config, options) {
-  options = extend({}, {
+function reporter(results, config, opts) {
+  var options = extend({}, {
     showSummaryOnSuccess: false,
     showSummaryHeader: false,
     showWarningTotals: false,
     showErrorTotals: false,
     print: console.log
-  }, options);
+  }, opts);
 
   var stats = statistics(results, config);
 
