@@ -164,7 +164,7 @@ function JSHintStylishSummary() {
         file.jshint.results.map(function(result) {
           stats[opts.stat].results.push(result);
         });
-        stats[opts.stat].config.push(file.jshint.data[0]);
+        stats[opts.stat].config.push(file.jshint.results[0]);
       }
       cb(null, file);
     });
