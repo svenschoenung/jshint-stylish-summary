@@ -9,6 +9,8 @@ var summary = require('./index.js');
 
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
+var jscsStylish = require('gulp-jscs-stylish');
 
 function testCollect(glob, collect, cb) {
   gulp.src(glob)
@@ -103,6 +105,15 @@ describe('summary.collect', function() {
       });
     });
   });
+  it('it should not fail when used with gulp-jscs-stylish', function(done) {
+    gulp.src('test/test1/good.js')
+      .pipe(jshint('test/.jshintrc'))
+      .pipe(jscs())
+      .pipe(jscsStylish.combineWithHintResults())
+      .pipe(summary.collect('jscs'))
+      .on('end', done);
+  });
+
 });
 
 describe('summary.summarize', function() {

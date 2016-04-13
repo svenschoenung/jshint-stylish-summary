@@ -156,15 +156,17 @@ function JSHintStylishSummary() {
     var opts = parseArguments(arguments);
     return map(function(file, cb) {
       stats[opts.stat] = stats[opts.stat] || { results: [], config: [] };
-      if (file.jshint.success) {
-        stats[opts.stat].config.push({
-          file: path.relative(file.cwd, file.path)
-        });
-      } else {
+      if (file.jshint.results) {
         file.jshint.results.map(function(result) {
           stats[opts.stat].results.push(result);
         });
+      }
+      if (file.jshint.data && file.jshint.data.length > 0) {
         stats[opts.stat].config.push(file.jshint.data[0]);
+      } else {
+        stats[opts.stat].config.push({
+          file: path.relative(file.cwd, file.path)
+        });
       }
       cb(null, file);
     });
