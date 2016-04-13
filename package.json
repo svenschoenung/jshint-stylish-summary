@@ -1,7 +1,7 @@
 {
   "name": "jshint-stylish-summary",
   "description": "A stylish summary reporter for jshint",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Sven Schönung <sven.schoenung@gmail.com> (http://sven.schoenung.org/)"
   },
