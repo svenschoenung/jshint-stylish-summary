@@ -1,5 +1,12 @@
 # API
 
+* [Default instance](API.md#default-instance)
+* [create()](API.md#create)
+* [collect([stat])](API.md#collectstat)
+* [summarize([stat[, options]]), summarize([options])](API.md#summarizestat-options-summarizeoptions)
+* [stats([stat])](API.md#statsstat)
+* [reporter(result, config, options)](API.md#reporterresult-config-options)
+
 ## Default instance
 
 A default instance of jshint-stylish-summary can be acquired by calling `require('jshint-stylish-summary')`.
