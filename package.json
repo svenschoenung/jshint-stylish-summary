@@ -11,16 +11,16 @@
     "url": "git://github.com/svenschoenung/jshint-stylish-summary.git"
   },
   "engines": {
-    "node": ">= 0.12"
+    "node": ">= 4"
   },
   "dependencies": {
-    "chalk": "^1.1.1",
+    "chalk": "^2.4.1",
     "extend": "^3.0.0",
-    "log-symbols": "^1.0.2",
+    "log-symbols": "^2.2.0",
     "map-stream": "0.0.6",
-    "plur": "^2.1.2",
+    "plur": "^3.0.1",
     "sprintf-js": "^1.0.3",
-    "string-length": "^1.0.1",
+    "string-length": "^2.0.0",
     "text-table": "^0.2.0"
   },
   "devDependencies": {
