@@ -6,7 +6,6 @@ var f = require('sprintf-js').sprintf;
 var chalk = require('chalk');
 var plur = require('plur');
 var symb = require('log-symbols');
-var extend = require('extend');
 var strLen = require('string-length');
 
 function log(output, opts) {
@@ -72,7 +71,7 @@ function statistics(results, config) {
 }
 
 function reporter(results, config, opts) {
-  var options = extend({}, {
+  var options = Object.assign({}, {
     showSummaryOnSuccess: false,
     showSummaryHeader: false,
     showWarningTotals: false,
@@ -178,7 +177,7 @@ function JSHintStylishSummary() {
       reporter(
         stats[opts.stat].results,
         stats[opts.stat].config,
-        extend({}, {
+        Object.assign({}, {
           showSummaryOnSuccess: true,
           showSummaryHeader: true,
           showWarningTotals: true,
