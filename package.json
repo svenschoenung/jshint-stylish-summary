@@ -17,7 +17,7 @@
     "chalk": "^2.4.1",
     "extend": "^3.0.0",
     "log-symbols": "^2.2.0",
-    "map-stream": "0.0.6",
+    "map-stream": "^0.1.0",
     "plur": "^3.0.1",
     "sprintf-js": "^1.0.3",
     "string-length": "^2.0.0",
