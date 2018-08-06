@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/svenschoenung/jshint-stylish-summary.svg)](https://david-dm.org/svenschoenung/jshint-stylish-summary)
 [![devDependency Status](https://david-dm.org/svenschoenung/jshint-stylish-summary/dev-status.svg)](https://david-dm.org/svenschoenung/jshint-stylish-summary#info=devDependencies)
 [![Code Climate](https://codeclimate.com/github/svenschoenung/jshint-stylish-summary/badges/gpa.svg)](https://codeclimate.com/github/svenschoenung/jshint-stylish-summary)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/d117b4c1f58144f4bc565d38722ce772)](https://www.codacy.com/app/svenschoenung/jshint-stylish-summary)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/d117b4c1f58144f4bc565d38722ce772)](https://www.codacy.com/app/svenschoenung/jshint-stylish-summary) [![Greenkeeper badge](https://badges.greenkeeper.io/svenschoenung/jshint-stylish-summary.svg)](https://greenkeeper.io/)
 
 # jshint-stylish-summary
 
