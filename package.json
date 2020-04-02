@@ -14,7 +14,7 @@
     "node": ">= 4"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^4.0.0",
     "log-symbols": "^2.2.0",
     "map-stream": "^0.1.0",
     "plur": "^3.0.1",
