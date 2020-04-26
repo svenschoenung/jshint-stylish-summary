@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "log-symbols": "^2.2.0",
+    "log-symbols": "^4.0.0",
     "map-stream": "^0.1.0",
     "plur": "^3.0.1",
     "sprintf-js": "^1.0.3",
